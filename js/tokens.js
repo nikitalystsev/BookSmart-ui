@@ -1,4 +1,4 @@
-import {baseURL, httpMethodPost} from "./settings";
+import {baseURL, httpMethodPost} from "./settings.js";
 
 export async function fetchWithAuth(url, options) {
     let tokens;
