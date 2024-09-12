@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Подробности о брони</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
+    <link rel="stylesheet" href="../css/book.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Информация о брони</h1>
+
+    <div id="reservation-container" class="card shadow-lg">
+        <div class="card-body">
+            <div id="message" class="alert d-none" role="alert"></div>
+            <div id="empty-reservation"></div>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Название и автор книги:</strong> <span id="book-title"></span></li>
+                <li class="list-group-item"><strong>Дата выдачи:</strong> <span id="reservation-issue-date"></span></li>
+                <li class="list-group-item"><strong>Дата возврата:</strong> <span id="reservation-return-date"></span>
+                </li>
+                <li class="list-group-item"><strong>Статус действия:</strong> <span id="reservation-state"></span>
+                </li>
+            </ul>
+
+            <div class="btn-container" id="book-btn">
+                <a href="reservationCatalog.html" class="btn btn-primary mt-3"><i class="fas fa-arrow-left"></i> Назад к
+                    списку броней</a>
+                <a href="#" class="btn btn-primary mt-3" id="update-reservation-btn"><i class="bi bi-arrow-repeat"></i> Продлить бронь</a>
+            </div>
+        </div>
+    </div>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script src="../js/reservation.js" type="module"></script>
+
+</body>
+</html>

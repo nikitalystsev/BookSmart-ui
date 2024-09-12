@@ -1,0 +1,28 @@
+body {
+    background-color: #f8f9fa;
+}
+
+.card {
+    /* Закругляем углы карточки */
+    border-radius: 15px; /* Можно изменить значение для большего или меньшего закругления */
+    /* Удаляем эффект увеличения */
+    /* transition: transform 0.2s; */
+}
+
+.list-group-item {
+    background-color: #ffffff;
+}
+
+.btn-container {
+    bottom: 10px; /* Расстояние от нижнего края карточки */
+    left: 10px; /* Расстояние от правого края карточки */
+    display: flex;
+    gap: 10px; /* Расстояние между кнопками */
+}
+
+.btn-container2 {
+    bottom: 10px; /* Расстояние от нижнего края карточки */
+    right: 10px; /* Расстояние от правого края карточки */
+    display: flex;
+    gap: 10px; /* Расстояние между кнопками */
+}

@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Каталог</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link rel="stylesheet" href="../css/catalog.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</head>
+<body>
+
+<div id="navbar-container"></div>
+
+<div class="container-fluid mt-3">
+    <div class="header-bar d-flex justify-content-between align-items-center">
+        <h1>Параметры поиска</h1>
+    </div>
+    <form class="mb-auto" id="paramsForm">
+        <div class="row">
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="title" placeholder="Название">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="author" placeholder="Автор">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="publisher" placeholder="Издательство">
+            </div>
+            <div class="col-md-3">
+                <input type="number" class="form-control" id="copies_number" placeholder="Число экземпляров">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-3">
+                <select class="form-control" id="rarity">
+                    <option value="">Редкость</option>
+                    <option value="Обычная">Обычная</option>
+                    <option value="Редкая">Редкая</option>
+                    <option value="Уникальная">Уникальная</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="genre" placeholder="Жанр">
+            </div>
+            <div class="col-md-3">
+                <input class="form-control" id="publishing_year" placeholder="Год издания" type="number">
+            </div>
+            <div class="col-md-3">
+                <input type="text" class="form-control" id="language" placeholder="Язык">
+            </div>
+        </div>
+        <div class="row mt-2">
+            <div class="col-md-3">
+                <select class="form-control" id="age_limit">
+                    <option value="">Цензура</option>
+                    <option value="0">0+</option>
+                    <option value="6">6+</option>
+                    <option value="12">12+</option>
+                    <option value="16">16+</option>
+                    <option value="18">18+</option>
+                    <option value="21">21+</option>
+                </select>
+            </div>
+            <div class="col-md-3">
+                <button type="submit" class="btn btn-primary btn-block" id="search-btn">Поиск</button>
+            </div>
+        </div>
+    </form>
+
+</div>
+
+<div class="container-fluid mt-4">
+    <div class="header-bar d-flex justify-content-between align-items-center">
+        <h1>Каталог</h1>
+        <!-- Кнопка "Добавить новую книгу" -->
+        <div id="admin-button-container"></div>
+    </div>
+    <div id="message" class="alert d-none" role="alert"></div>
+    <div class="row" id="book-cards">
+        <!-- Здесь будут карточки книг -->
+    </div>
+
+</div>
+
+<div class="pagination-container">
+    <nav aria-label="Page navigation example">
+        <ul class="pagination justify-content-center mt-4" id="pagination">
+            <li class="page-item"><a class="page-link" href="#" id="prevPageBtn"><i class="fas fa-chevron-left"></i> Назад</a></li>
+            <li class="page-item"><a class="page-link" href="#" id="nextPageBtn">Вперед <i class="fas fa-chevron-right"></i></a></li>
+        </ul>
+    </nav>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+<script src="../js/catalog.js" type="module"></script>
+
+</body>
+</html>
