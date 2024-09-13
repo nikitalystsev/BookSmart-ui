@@ -181,7 +181,6 @@ function displayBooks(books) {
         bookCardsContainer.appendChild(card);
     });
 
-    // Добавление обработчика событий для всех кнопок
     bookCardsContainer.querySelectorAll('.btn-primary').forEach(button => {
         button.addEventListener('click', (event) => {
             event.preventDefault();
@@ -192,7 +191,7 @@ function displayBooks(books) {
 }
 
 async function getBooksWithMessage(event) {
-    event.preventDefault(); // Предотвращаем стандартное поведение отправки формы
+    event.preventDefault();
 
     const message = await getBooks(event)
 
