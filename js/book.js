@@ -2,7 +2,9 @@ import {fetchWithAuth} from "./tokens.js";
 import {isBadRequest, isConflict, isForbidden, isInternalServerError, isNotFound} from "./errors.js";
 import {baseURL, httpMethodDelete, httpMethodGet, httpMethodPost} from "./settings.js";
 
-function displaySelectedBook() {
+async function displaySelectedBook(event) {
+    event.preventDefault();
+
     console.log("call displaySelectedBook")
 
     const selectedBook = JSON.parse(sessionStorage.getItem("selectedBook"));
@@ -11,6 +13,13 @@ function displaySelectedBook() {
         document.getElementById('empty-book').innerHTML = '<h2>Книга не найдена.</h2>';
         return;
     }
+
+    const avg_rating = await getAvgRatingBook()
+
+    let info_rating;
+
+    if (avg_rating == null) info_rating = "Книга не оценена"
+    else info_rating = avg_rating.avg_rating
 
     const {copies_number, publisher, age_limit, rarity, title, author, genre, language, publishing_year} = selectedBook;
 
@@ -23,6 +32,7 @@ function displaySelectedBook() {
     document.getElementById('book-publishing-year').textContent = publishing_year || 'Нет данных';
     document.getElementById('book-language').textContent = language || 'Нет данных';
     document.getElementById('book-age-limit').textContent = age_limit || 'Нет данных';
+    document.getElementById('book-avg-rating').textContent = info_rating;
 }
 
 async function getActualSelectedBook() {
@@ -52,6 +62,39 @@ async function getActualSelectedBook() {
 
 async function getActualSelectedBookFromStorage(bookID) {
     return await fetchWithAuth(`${baseURL}/books/${bookID}`, {
+        method: httpMethodGet,
+        headers: {
+            'Content-Type': 'application/json'
+        },
+    });
+}
+
+async function getAvgRatingBook() {
+    let selectedBook = JSON.parse(sessionStorage.getItem("selectedBook"));
+    if (!selectedBook) {
+        document.getElementById("empty-book").innerHTML = '<h2>Книга не найдена</h2>';
+        return;
+    }
+
+    let params = {}
+    params.book_id = selectedBook.id
+
+    try {
+        const response = await getAvgRatingBookFromStorage(params)
+
+        if (isBadRequest(response)) return "Ошибка запроса"
+        if (isNotFound(response)) return null
+        if (isInternalServerError(response)) return response.text()
+
+        return await response.json()
+    } catch (error) {
+        return `Error: ${error.message}`;
+    }
+}
+
+async function getAvgRatingBookFromStorage(searchParams) {
+    const params = new URLSearchParams(searchParams).toString()
+    return await fetch(`${baseURL}/ratings/avg?${params}`, {
         method: httpMethodGet,
         headers: {
             'Content-Type': 'application/json'
@@ -202,11 +245,22 @@ function addButtonsIfAuthenticated() {
     addBookToFavoriteBtn.className = 'btn btn-secondary mt-3';
     addBookToFavoriteBtn.innerHTML = '<i class="fas fa-heart"></i> Добавить в избранное';
 
+    const addRatingBookBtn = document.createElement('a');
+    addRatingBookBtn.href = '../templates/addRating.html';
+    addRatingBookBtn.id = 'ratingBookBtn'
+    addRatingBookBtn.className = 'btn btn-primary mt-3';
+    addRatingBookBtn.innerHTML = '<i class="fas fa-star"></i> Добавить отзыв';
+
     btnContainer.appendChild(reserveBookBtn);
     btnContainer.appendChild(addBookToFavoriteBtn);
+    btnContainer.appendChild(addRatingBookBtn);
 
     reserveBookBtn.addEventListener("click", reserveSelectedBookWithMessage)
     addBookToFavoriteBtn.addEventListener("click", addToFavoritesSelectedBookWithMessage)
+    addRatingBookBtn.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = addRatingBookBtn.href;
+    });
 }
 
 function addButtonDeleteBookIfAdmin() {
@@ -336,8 +390,25 @@ async function deleteBookWithMessage(event) {
     messageElement.classList.remove('d-none'); // Показываем сообщение
 }
 
+function addButtonReview() {
+    const btnContainer = document.getElementById('book-btn');
+
+    const reviewBookBtn = document.createElement('a');
+    reviewBookBtn.href = '../templates/bookRatings.html';
+    reviewBookBtn.id = 'reviewBookBtn';
+    reviewBookBtn.className = 'btn btn-primary mt-3';
+    reviewBookBtn.innerHTML = '<i class="fas fa-comments"></i> Посмотреть отзывы';
+
+    btnContainer.appendChild(reviewBookBtn);
+
+    reviewBookBtn.addEventListener("click", function (event) {
+        event.preventDefault();
+        window.location.href = reviewBookBtn.href; // переход на другую страницу
+    });
+}
 
 // Вызываем функцию при загрузке страницы
 document.addEventListener('DOMContentLoaded', addButtonsIfAuthenticated);
 document.addEventListener('DOMContentLoaded', addButtonDeleteBookIfAdmin);
+document.addEventListener('DOMContentLoaded', addButtonReview);
 document.addEventListener('DOMContentLoaded', displaySelectedBook);
