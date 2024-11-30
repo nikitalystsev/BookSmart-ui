@@ -1,0 +1,53 @@
+h2 {
+    font-size: 32px;
+    padding-top: 24px;
+}
+
+.my-sign-up-container {
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.my-sign-up-form {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.my-sign-up-form-control {
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.my-sign-up-btn {
+    background-color: #771111;
+    border-color: #771111;
+    font-size: 20px;
+}
+
+.my-sign-up-btn:hover,
+.my-sign-up-btn:active {
+    background-color: white;
+    border-color: #771111;
+    color: #771111;
+}
+
+.my-sign-up-alr-reg-btn {
+    font-size: 20px;
+    color: #771111;
+    text-decoration: none;
+}
+
+.my-sign-up-alr-reg-btn:hover,
+.my-sign-up-alr-reg-btn:active {
+    color: #771111;
+}
+
+.my-alr-reg {
+    font-weight: normal;
+}
+
+.my-alert {
+    font-size: 20px;
+    font-weight: bold;
+}

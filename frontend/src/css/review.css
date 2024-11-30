@@ -1,0 +1,51 @@
+h2 {
+    font-size: 32px;
+    padding-top: 24px;
+}
+
+.my-review-container {
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.my-review-form {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.my-review-form-control {
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.my-review-btn {
+    background-color: #771111;
+    border-color: #771111;
+    font-size: 20px;
+}
+
+.my-review-btn:hover,
+.my-review-btn:active {
+    background-color: white;
+    border-color: #771111;
+    color: #771111;
+}
+
+.my-go-to-book {
+    font-weight: normal;
+    font-size: 20px;
+    color: #771111;
+    text-decoration: none;
+}
+
+.my-go-to-book:hover,
+.my-go-to-book:active {
+    color: #771111;
+}
+
+
+.my-alert {
+    font-size: 20px;
+    font-weight: bold;
+}

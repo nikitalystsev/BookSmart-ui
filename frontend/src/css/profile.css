@@ -1,0 +1,62 @@
+h1 {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.my-profile-card {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-width: 0;
+    border-radius: 20px;
+}
+
+.my-profile-list-item {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.my-profile-btn {
+    flex: 1; /* grow value */
+    margin: 5px;
+    background: #771111;
+    border-color: #771111;
+}
+
+.my-profile-btn:hover,
+.my-profile-btn:active {
+    background: white;
+    border-color: #771111;
+    color: #771111;
+}
+
+.my-alert {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.my-profile-card-title {
+    font-size: 24px;
+}
+
+.my-custom-pagination {
+    margin-bottom: 0;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    margin-top: auto;
+}
+
+.my-custom-pagination-btns {
+    border-width: 0;
+    background: white;
+    color: #771111;
+    font-size: 20px;
+}
+
+.my-custom-pagination-btns:hover {
+    background: #771111;
+    color: white;
+}
+
+
+span {
+    font-weight: normal;
+}
+

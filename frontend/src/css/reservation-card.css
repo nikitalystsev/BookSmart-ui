@@ -1,0 +1,27 @@
+.my-reservation-card {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-width: 0;
+    border-radius: 20px;
+}
+
+.my-reservation-list-item {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.my-reservation-btn {
+    background: #771111;
+    border-color: #771111;
+}
+
+.my-reservation-btn:hover {
+    background: white;
+    border-color: #771111;
+    color: #771111;
+}
+
+.my-alert {
+    font-size: 20px;
+    font-weight: bold;
+}
+

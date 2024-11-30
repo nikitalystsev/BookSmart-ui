@@ -1,0 +1,46 @@
+h1 {
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.my-book-info-card {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-width: 0;
+    border-radius: 20px;
+}
+
+.my-book-info-title {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.my-book-info-subtitle {
+    font-size: 20px;
+    color: #6C757D;
+}
+
+.my-book-info-list-item {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.my-book-info-btn {
+    background: #771111;
+    border-color: #771111;
+}
+
+.my-book-info-btn:hover {
+    background: white;
+    border-color: #771111;
+    color: #771111;
+}
+
+
+span {
+    font-weight: normal;
+}
+
+.my-alert {
+    font-size: 20px;
+    font-weight: bold;
+}

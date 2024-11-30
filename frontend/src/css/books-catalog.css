@@ -1,0 +1,37 @@
+.my-catalog-btn {
+    background: #771111;
+    border-color: #771111;
+    font-size: 20px;
+}
+
+.my-catalog-btn:hover,
+.my-catalog-btn:active {
+    background: white;
+    border-color: #771111;
+    color: #771111;
+}
+
+.my-book-card {
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    border-width: 0;
+}
+
+.my-book-card-header {
+    background: #E7E7E7;
+    border-width: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.my-book-card-title {
+    font-size: 20px;
+}
+
+.my-catalog-page-div {
+    min-height: 100vh;
+}
+
+.my-alert {
+    font-size: 20px;
+    font-weight: bold;
+}

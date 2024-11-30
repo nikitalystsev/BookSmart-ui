@@ -1,0 +1,53 @@
+h2 {
+    font-size: 32px;
+    padding-top: 24px;
+}
+
+.my-sign-in-container {
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.my-sign-in-form {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+.my-sign-in-form-control {
+    border-radius: 5px;
+    font-size: 20px;
+}
+
+.my-sign-in-btn {
+    background-color: #771111;
+    border-color: #771111;
+    font-size: 20px;
+}
+
+.my-sign-in-btn:hover,
+.my-sign-in-btn:active {
+    background-color: white;
+    border-color: #771111;
+    color: #771111;
+}
+
+.my-sign-in-cr-akk-btn {
+    font-size: 20px;
+    color: #771111;
+    text-decoration: none;
+}
+.my-sign-in-cr-akk-btn:hover,
+.my-sign-in-cr-akk-btn:active {
+    color: #771111;
+}
+
+.my-not-akk {
+    font-weight: normal;
+}
+
+
+.my-alert {
+    font-size: 20px;
+    font-weight: bold;
+}

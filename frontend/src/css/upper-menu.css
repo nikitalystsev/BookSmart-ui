@@ -1,0 +1,30 @@
+.my-upper-menu-navbar {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-size: 20px;
+    width: 100%;
+}
+
+.my-upper-menu-brand {
+    font-weight: bold;
+}
+
+
+.my-upper-menu-logo {
+    height: 30px;
+    width: auto;
+}
+
+.my-upper-menu-button {
+    color: #771111; /* Цвет текста */
+    border-color: #771111; /* Цвет окантовки */
+    border-width: 2px; /* Толщина линии окантовки */
+}
+
+/* Стиль для состояния при наведении */
+.my-upper-menu-button:hover,
+.my-upper-menu-button:active {
+    background: #771111;
+    color: white;
+    border-color: #771111;
+}
+

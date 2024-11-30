@@ -1,0 +1,7 @@
+body {
+    font-family: Arial, sans-serif;
+    color: #000000;
+    margin: 0; /* Убираем отступы по умолчанию */
+    height: 100vh; /* Устанавливаем высоту body на 100% высоты окна */
+    background-color: #f8f9fa;
+}
