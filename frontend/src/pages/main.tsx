@@ -1,9 +1,9 @@
 import React from 'react';
-import '../css/mainPage.css';
+import '../css/main.css';
 import mainImage from '../img/main_image.svg'
 import UpperMenu from "../components/upper-menu";
 
-function MainPage() {
+function Main() {
 
     return (
         <div>
@@ -16,4 +16,4 @@ function MainPage() {
     );
 }
 
-export default MainPage;
+export default Main;

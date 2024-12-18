@@ -1,10 +1,11 @@
 import React, {useState} from 'react';
-import {Alert, Button, Container, Form, Row} from 'react-bootstrap';
+import {Button, Container, Form, Row} from 'react-bootstrap';
 import '../css/sign-in-card.css'
 import {apiSignIn} from "../services/auth.service";
 import {useNavigate} from "react-router-dom";
 import {StatusCodes} from "http-status-codes";
-import {useSession} from "./sessionContextComponent";
+import {useSession} from "./session-context";
+import MyAlert from "./alert";
 
 function SignInCard() {
     const {login} = useSession();
@@ -50,7 +51,7 @@ function SignInCard() {
             <Row className="justify-content-center">
                 <h2 className="text-center">Вход в систему</h2>
                 <Form onSubmit={handlerSignIn} className="my-sign-in-form">
-                    <Alert variant={alertVariant} className="mx-2 my-alert">{alertMessage}</Alert>
+                    <MyAlert message={alertMessage} variant={alertVariant} align={"mx-2 my-alert"}></MyAlert>
                     <Form.Group className="mb-5 mx-2" controlId="phoneNumber">
                         <Form.Label>Номер телефона</Form.Label>
                         <Form.Control
@@ -90,4 +91,4 @@ function SignInCard() {
     );
 }
 
-export default SignInCard;
+export default SignInCard

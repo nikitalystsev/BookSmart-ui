@@ -2,19 +2,21 @@ import {Alert, Button, Card, ListGroup, Row} from "react-bootstrap";
 import '../css/profile.css'
 import Container from "react-bootstrap/Container";
 import React, {useEffect, useState} from "react";
-import {IJSONReaderModel} from "../types/types";
+import {IJSONReaderModel, ISignInOutput} from "../types/types";
 import {getCurrentUser, logOut} from "../services/auth.service";
 import {apiGetReaderByID} from "../services/user.service";
 import {useNavigate} from "react-router-dom";
 import {StatusCodes} from "http-status-codes";
 import {apiGetLibCardByReaderID} from "../services/libCard.service";
+import MyAlert from "./alert";
 
 function ProfileCard() {
     const navigate = useNavigate()
-    const currentUser= getCurrentUser()
-    const [reader, setReader] = useState<IJSONReaderModel>()
+    const [reader, setReader] = useState<IJSONReaderModel | null>(null)
     const [alertVariant, setAlertVariant] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
+
+    const currentUser= getCurrentUser()
 
     useEffect(() => {
         handlerGetReaderByID().then()
@@ -49,6 +51,8 @@ function ProfileCard() {
 
     const handlerGoToLibCardPage = async () => {
         console.log("call handlerGoToLibCardPage")
+        console.log("current user: ", currentUser)
+
         if (!currentUser) return;
 
         const statusObj = await apiGetLibCardByReaderID(currentUser.reader_id); // прячет чит. билет в sessionStorage
@@ -99,7 +103,7 @@ function ProfileCard() {
                         <Card.Title className="text-center my-profile-card-title">{reader?.fio}
                         </Card.Title>
                     </Card.Body>
-                    <Alert variant={alertVariant} className="mx-3 my-alert">{alertMessage}</Alert>
+                    <MyAlert message={alertMessage} variant={alertVariant} align={"mx-3 my-alert"}></MyAlert>
                     <ListGroup variant="flush">
                         <ListGroup.Item className="my-profile-list-item">Номер
                             телефона: <span>{reader?.phone_number}</span></ListGroup.Item>

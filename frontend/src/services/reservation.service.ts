@@ -85,7 +85,7 @@ export async function apiUpdateReservation(
 }
 
 
-export function getCurrentReservation() {
+export function getCurrentReservation(): IReservationOutputDTO | null {
     const reservationStr = sessionStorage.getItem(reservationKey)
     if (reservationStr) return JSON.parse(reservationStr)
 

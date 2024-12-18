@@ -4,7 +4,7 @@ import {IJSONLibCardModel} from "../types/types";
 import axios from "axios";
 import {unexpectedError} from "./auth.service";
 
-const libCardKey: string = "lib_card";
+export const libCardKey: string = "lib_card";
 
 export async function apiGetLibCardByReaderID(readerID: string) {
     try {
@@ -75,7 +75,7 @@ export async function apiUpdateLibCard(readerID: string) {
     }
 }
 
-export function getCurrentLibCard() {
+export function getCurrentLibCard(): IJSONLibCardModel | null {
     const libCardStr = sessionStorage.getItem(libCardKey)
     if (libCardStr) return JSON.parse(libCardStr)[0]
 

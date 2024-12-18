@@ -4,6 +4,7 @@ import '../css/sign-up-card.css'
 import {apiSignUp} from "../services/auth.service";
 import {useNavigate} from "react-router-dom";
 import {StatusCodes} from "http-status-codes";
+import MyAlert from "./alert";
 
 function SignUpCard() {
     const navigate = useNavigate()
@@ -45,7 +46,7 @@ function SignUpCard() {
             <Row>
                 <h2 className="text-center">Регистрация</h2>
                 <Form onSubmit={handlerSignUp} className="my-sign-up-form">
-                    <Alert variant={alertVariant} className="mx-2 my-alert">{alertMessage}</Alert>
+                    <MyAlert message={alertMessage} variant={alertVariant} align={"mx-2 my-alert"}></MyAlert>
                     <Form.Group className="mb-3 mx-2" controlId="fio">
                         <Form.Label>ФИО</Form.Label>
                         <Form.Control
@@ -107,4 +108,4 @@ function SignUpCard() {
     );
 }
 
-export default SignUpCard;
+export default SignUpCard

@@ -7,29 +7,30 @@ import '../css/upper-menu.css'
 
 function InputButton() {
     const navigate = useNavigate();
-    const [currentUser, setCurrentUser] = useState<ISignInOutput | undefined | null>(null);
+    const [currentUser, setCurrentUser] = useState<ISignInOutput | null>(null);
 
     useEffect(() => {
-        const user = getCurrentUser();
-        if (user) setCurrentUser(user);
+        // console.log("call input button use effect")
+        const user = getCurrentUser()
+        if (user) setCurrentUser(user)
     }, []);
 
-    const handlerGoToProfile = () => {
-        navigate('/profile');
+    const handlerGoToProfilePage = () => {
+        navigate('/profile')
     };
 
-    const handleGoToSignIn = () => {
-        navigate('/auth/sign-in');
+    const handleGoToSignInPage = () => {
+        navigate('/auth/sign-in')
     };
 
     return (
         <>
             {currentUser ? (
-                <Button variant="outline-primary" className="my-upper-menu-button" onClick={handlerGoToProfile}>
+                <Button variant="outline-primary" className="my-upper-menu-button" onClick={handlerGoToProfilePage}>
                     Личный кабинет
                 </Button>
             ) : (
-                <Button variant="outline-primary" className="my-upper-menu-button" onClick={handleGoToSignIn}>
+                <Button variant="outline-primary" className="my-upper-menu-button" onClick={handleGoToSignInPage}>
                     Войти
                 </Button>
             )}

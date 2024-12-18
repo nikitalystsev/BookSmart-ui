@@ -1,7 +1,7 @@
 import React from 'react';
 import 'bootstrap/dist/css/bootstrap.min.css'
 import './App.css'
-import MainPage from "./pages/mainPage";
+import Main from "./pages/main";
 import {Route, Routes} from 'react-router-dom';
 import BooksCatalog from "./pages/books-catalog";
 import Profile from "./pages/profile";
@@ -12,14 +12,14 @@ import LibCard from "./pages/lib-card";
 import Reservation from "./pages/reservation";
 import ReviewPage from "./pages/review";
 import ReservationsCatalog from "./pages/reservations-catalog";
-import {SessionProvider} from "./components/sessionContextComponent";
+import {SessionProvider} from "./components/session-context";
 
 function App() {
 
     return (
         <SessionProvider>
             <Routes>
-                <Route path="/" element={<MainPage/>}></Route>
+                <Route path="/" element={<Main/>}></Route>
                 <Route path="/auth/sign-in" element={<SignIn/>}></Route>
                 <Route path="/auth/sign-up" element={<SignUp/>}></Route>
                 <Route path="/profile" element={<Profile/>}></Route>

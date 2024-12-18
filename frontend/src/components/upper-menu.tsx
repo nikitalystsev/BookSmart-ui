@@ -14,22 +14,21 @@ function UpperMenu() {
     const [inBooksCatalogPage, setBooksCatalogPage] = useState(false)
 
     useEffect(() => {
+        console.log("call upper menu use effect")
         whereAmI()
-    }, [])
+    })
 
     const handlerGoToMainPage = () => {
         navigate("/")
     }
-    const handlerGoToBookCatalog = () => {
+
+    const handlerGoToBooksCatalog = () => {
         navigate("/books")
     }
 
     function whereAmI() {
-        if (location.pathname === '/') {
-            setMainPage(true)
-        } else if (location.pathname === '/books') {
-            setBooksCatalogPage(true)
-        }
+        if (location.pathname === '/') setMainPage(true)
+        else if (location.pathname === '/books') setBooksCatalogPage(true)
     }
 
     return (
@@ -47,7 +46,7 @@ function UpperMenu() {
                 <Navbar.Collapse id="basic-navbar-nav">
                     <Nav className="me-auto">
                         <Nav.Link active={inMainPage} onClick={handlerGoToMainPage}>Главная</Nav.Link>
-                        <Nav.Link active={inBooksCatalogPage} onClick={handlerGoToBookCatalog}>Каталог</Nav.Link>
+                        <Nav.Link active={inBooksCatalogPage} onClick={handlerGoToBooksCatalog}>Каталог</Nav.Link>
                     </Nav>
                     <InputButton/>
                 </Navbar.Collapse>

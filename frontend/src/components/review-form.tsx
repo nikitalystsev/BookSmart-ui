@@ -6,6 +6,7 @@ import {StatusCodes} from "http-status-codes";
 import {apiAddNewRating} from "../services/review.service";
 import getCurrentBook from "../services/book.service";
 import {getCurrentUser} from "../services/auth.service";
+import MyAlert from "./alert";
 
 const ReviewForm = () => {
     const navigate = useNavigate();
@@ -15,6 +16,7 @@ const ReviewForm = () => {
     });
     const [alertVariant, setAlertVariant] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
+
     const currentUser = getCurrentUser()
     const currentBook = getCurrentBook()
 
@@ -71,7 +73,7 @@ const ReviewForm = () => {
             <Row className="justify-content-center">
                 <h2 className="text-center">Добавить новый отзыв</h2>
                 <Form onSubmit={handlerReview} className="my-review-form">
-                    <Alert variant={alertVariant} className="mx-2 my-alert">{alertMessage}</Alert>
+                    <MyAlert message={alertMessage} variant={alertVariant} align={"mx-2 my-alert"}></MyAlert>
                     <Form.Group className="mb-5 mx-2" controlId="phoneNumber">
                         <Form.Label>Отзыв</Form.Label>
                         <Form.Control

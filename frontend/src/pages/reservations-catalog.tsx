@@ -10,17 +10,18 @@ import '../css/reservations-catalog.css'
 import {StatusCodes} from "http-status-codes";
 import {apiGetReservationByID} from "../services/reservation.service";
 import {getCurrentUser} from "../services/auth.service";
+import MyAlert from "../components/alert";
 
 function ReservationsCatalog() {
     const navigate = useNavigate();
     const currentUser = getCurrentUser()
-    const [currPage, setCurrPage] = useState(1)
+    const [currentPage, setCurrentPage] = useState(1)
     const [reservations, setReservations] = useState<IReservationOutputDTO[]>([])
     const [alertVariant, setAlertVariant] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
 
     useEffect(() => {
-        getPageReservations(currPage).then()
+        getPageReservations(currentPage).then()
     }, []);
 
     const getPageReservations = async (page_number: number) => {
@@ -64,19 +65,21 @@ function ReservationsCatalog() {
 
             setReservations(updatedReservations);
         }
+
+        return statusCode
     };
 
     const handlerNextPageReservations = async () => {
-        const result = await getPageReservations(currPage + 1);
-        if (result !== null) {
-            setCurrPage(currPage + 1);
+        const statusCode = await getPageReservations(currentPage + 1);
+        if (statusCode === StatusCodes.OK) {
+            setCurrentPage(currentPage + 1);
         }
     };
 
     const handlerPrevPageReservations = async () => {
-        if (currPage > 1) {
-            await getPageReservations(currPage - 1);
-            setCurrPage(currPage - 1);
+        if (currentPage > 1) {
+            await getPageReservations(currentPage - 1);
+            setCurrentPage(currentPage - 1);
         }
     };
 
@@ -119,7 +122,7 @@ function ReservationsCatalog() {
                 <h1 className="mt-4">Список броней</h1>
                 <Button className="my-catalog-btn" onClick={handlerGoToProfilePage}>Назад к профилю</Button>
                 <hr/>
-                <Alert variant={alertVariant} className="my-alert">{alertMessage}</Alert>
+                <MyAlert message={alertMessage} variant={alertVariant} align={"my-alert"}></MyAlert>
                 <Matrix
                     items={reservations}
                     renderItem={
@@ -146,7 +149,7 @@ function ReservationsCatalog() {
             <Pagination
                 onClickNextPage={handlerNextPageReservations}
                 onClickPrevPage={handlerPrevPageReservations}
-                currPage={currPage}
+                currPage={currentPage}
             />
         </div>
     )

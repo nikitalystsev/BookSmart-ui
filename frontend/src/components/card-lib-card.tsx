@@ -11,19 +11,19 @@ import {
 } from "../services/libCard.service";
 import {StatusCodes} from "http-status-codes";
 import React, {useEffect, useState} from "react";
+import {IJSONLibCardModel} from "../types/types";
+import MyAlert from "./alert";
 
 function CardLibCard() {
     const navigate = useNavigate()
     const [alertVariant, setAlertVariant] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
-    let currentLibCard = getCurrentLibCard()
-    const currentUser = getCurrentUser()
-    let actionStatus: string = ""
+    const [currentLibCard, setCurrentLibCard] = useState<IJSONLibCardModel | null>(null)
 
-    if (currentLibCard && currentLibCard.action_status) actionStatus = "Действующий"
-    else if (currentLibCard && !currentLibCard.action_status) actionStatus = "Недействующий"
+    const currentUser = getCurrentUser()
 
     useEffect(() => {
+        console.log("call card lib card use effect")
         handlerGetLibCard().then()
     }, []);
 
@@ -56,11 +56,15 @@ function CardLibCard() {
 
         setAlertVariant(variant);
         setAlertMessage(message);
-        currentLibCard = statusObj.response_data;
+
+        if (statusCode === StatusCodes.OK) {
+            setCurrentLibCard(statusObj.response_data[0])
+            console.log("data", statusObj.response_data[0])
+        }
     }
 
     const handlerCreateLibCard = async () => {
-        if (currentUser === null || currentUser === undefined) return
+        if (!currentUser) return
 
         const statusCode = await apiCreateLibCard(currentUser.reader_id)
 
@@ -80,6 +84,8 @@ function CardLibCard() {
 
         setAlertVariant(variant);
         setAlertMessage(message);
+
+        if (statusCode === StatusCodes.CREATED) await handlerGetLibCard();
     }
 
     const handlerUpdateLibCard = async () => {
@@ -115,9 +121,9 @@ function CardLibCard() {
                 <h1 className="mb-4 text-center">Информация о читательском билете</h1>
                 <Col className="d-flex justify-content-center">
                     <Card className="my-lib-card-card col-10">
-                        <Alert variant={alertVariant} className=" mt-3 mx-3 my-alert">{alertMessage}</Alert>
+                        <MyAlert message={alertMessage} variant={alertVariant} align={" mt-3 mx-3 my-alert"}></MyAlert>
                         <ListGroup variant="flush">
-                            <ListGroup.Item className="my-lib-card-list-item mx-3">
+                            <ListGroup.Item className="my-lib-card-list-item mt-2 mx-3">
                                 Номер: <span>{currentLibCard?.lib_card_num}</span>
                             </ListGroup.Item>
                             <ListGroup.Item className="my-lib-card-list-item mx-3">Срок
@@ -125,10 +131,10 @@ function CardLibCard() {
                             <ListGroup.Item className="my-lib-card-list-item mx-3">Дата
                                 выдачи: <span>{currentLibCard?.issue_date}</span></ListGroup.Item>
                             <ListGroup.Item className="my-lib-card-list-item mx-3">Статус
-                                действия: <span>{actionStatus}</span></ListGroup.Item>
+                                действия: <span>{currentLibCard ? (currentLibCard.action_status ? "Действующий" : " Недействующий") : ""}</span></ListGroup.Item>
                         </ListGroup>
                         <Row className="m-2">
-                            <Button variant="primary" className="col-4 m-1 my-lib-card-btn"
+                            <Button variant="primary" className="col-4 m-1 ms-4 my-lib-card-btn"
                                     onClick={handlerGoToProfilePage}>Назад к профилю</Button>
 
                             <>

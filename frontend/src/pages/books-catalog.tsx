@@ -2,7 +2,7 @@ import Container from "react-bootstrap/Container";
 import {Alert, Button, Card, Col, Form, Row} from "react-bootstrap";
 import Matrix from "../components/matrix";
 import {IJSONBookModel} from "../types/types";
-import React, {FormEvent, useState} from "react";
+import React, {FormEvent, useEffect, useState} from "react";
 import {apiGetPageBooks} from "../services/books.catalog.service";
 import '../css/books-catalog.css'
 import UpperMenu from "../components/upper-menu";
@@ -11,6 +11,7 @@ import {apiGetBookByID} from "../services/book.service";
 import {useNavigate} from "react-router-dom";
 import Pagination from "../components/pagination";
 import {StatusCodes} from "http-status-codes";
+import MyAlert from "../components/alert";
 
 const bookParams = [
     {id: 'title', type: 'text', placeholder: 'Название'},
@@ -59,6 +60,10 @@ function BooksCatalog() {
     const [alertVariant, setAlertVariant] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
 
+    useEffect(() => {
+        console.log("call books catalog use effect")
+        getPageBooks(1).then()
+    }, []);
 
     const onFieldChange = (event: any) => {
         let value = event.target.value;
@@ -108,6 +113,8 @@ function BooksCatalog() {
         setAlertMessage(message);
 
         setCurrentPageBooks(statusObj.response_data);
+
+        return statusCode
     };
 
 
@@ -119,8 +126,8 @@ function BooksCatalog() {
     };
 
     const handlerNextPageBooks = async () => {
-        const result = await getPageBooks(currentPage + 1);
-        if (result !== null) {
+        const statusCode = await getPageBooks(currentPage + 1);
+        if (statusCode === StatusCodes.OK) {
             setCurrPage(currentPage + 1);
         }
     };
@@ -204,7 +211,7 @@ function BooksCatalog() {
             <Container fluid>
                 <h1 className="mt-5"> Каталог</h1>
                 <hr></hr>
-                <Alert variant={alertVariant} className="mt-3 my-alert">{alertMessage}</Alert>
+                <MyAlert message={alertMessage} variant={alertVariant} align={"mt-3 my-alert"}></MyAlert>
                 <Matrix
                     items={currentPageBooks}
                     renderItem={

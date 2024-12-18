@@ -1,12 +1,14 @@
 import {Alert, Button, Card, Col, ListGroup, Row} from "react-bootstrap";
 import Container from "react-bootstrap/Container";
-import React, {FC, useState} from "react";
-import {IBookOutputDTO} from "../types/types";
+import React, {FC, useEffect, useState} from "react";
+import {IBookOutputDTO, IJSONBookModel, IJSONLibCardModel, ISignInOutput} from "../types/types";
 import {getCurrentUser} from "../services/auth.service";
 import '../css/book-card.css'
 import {useNavigate} from "react-router-dom";
 import {apiReserveBook} from "../services/reservation.service";
 import {StatusCodes} from "http-status-codes";
+import MyAlert from "./alert";
+import {apiGetBookByID} from "../services/book.service";
 
 interface BookCardProps {
     book: IBookOutputDTO | null;
@@ -14,9 +16,16 @@ interface BookCardProps {
 
 const BookCard: FC<BookCardProps> = ({book}) => {
     const navigate = useNavigate()
-    const currentUser = getCurrentUser()
     const [alertVariant, setAlertVariant] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
+    const [currentBook, setCurrentBook] = useState<IBookOutputDTO | null>(null)
+
+    const currentUser = getCurrentUser()
+
+    useEffect(() => {
+        console.log("call book card use effect")
+        handlerGetBookInfo().then()
+    }, [])
 
     const handlerGoToBookCatalog = () => {
         navigate("/books")
@@ -47,7 +56,18 @@ const BookCard: FC<BookCardProps> = ({book}) => {
         else setAlertMessage(msg)
         if (statusCode === StatusCodes.CREATED) setAlertVariant("success")
         else setAlertVariant("danger")
+
+        if (statusCode === StatusCodes.CREATED) await handlerGetBookInfo()
     }
+
+    const handlerGetBookInfo = async () => {
+        if (!book) return
+
+        const statusObj = await apiGetBookByID(book.id); // прячет книгу в sessionStorage
+        const statusCode: number = statusObj.response_status;
+
+        if (statusCode === StatusCodes.OK) setCurrentBook(statusObj.response_data)
+    };
 
     const handlerGoToReviewPage = () => {
         navigate("/books/book/review")
@@ -59,34 +79,35 @@ const BookCard: FC<BookCardProps> = ({book}) => {
                 <Col>
                     <h1 className="mt-5 mb-3 text-center">Информация о книге</h1>
                     <Card className="my-book-info-card col-12">
+                        <MyAlert message={alertMessage} variant={alertVariant} align={"mx-3 mt-3 my-alert"}></MyAlert>
                         <Card.Body>
-                            <Card.Title className="mt-3 my-book-info-title">{book?.title}
+                            <Card.Title className="mx-3 mt-3 my-book-info-title">{currentBook?.title}
                             </Card.Title>
-                            <Card.Subtitle className="mt-3 my-book-info-subtitle">{book?.author}</Card.Subtitle>
+                            <Card.Subtitle
+                                className="mt-3 mx-3 my-book-info-subtitle">{currentBook?.author}</Card.Subtitle>
                         </Card.Body>
-                        <Alert variant={alertVariant} className="mx-3 my-alert">{alertMessage}</Alert>
                         <ListGroup variant="flush">
                             <ListGroup.Item
-                                className="mx-3 my-book-info-list-item">Издатель: <span>{book?.publisher}</span></ListGroup.Item>
+                                className="mx-3 my-book-info-list-item">Издатель: <span>{currentBook?.publisher}</span></ListGroup.Item>
                             <ListGroup.Item className="mx-3 my-book-info-list-item">Количество
-                                копий: <span>{book?.copies_number}</span></ListGroup.Item>
+                                копий: <span>{currentBook?.copies_number}</span></ListGroup.Item>
                             <ListGroup.Item
-                                className="mx-3 my-book-info-list-item">Редкость: <span>{book?.rarity}</span></ListGroup.Item>
+                                className="mx-3 my-book-info-list-item">Редкость: <span>{currentBook?.rarity}</span></ListGroup.Item>
                             <ListGroup.Item
-                                className="mx-3 my-book-info-list-item">Жанр: <span>{book?.genre}</span></ListGroup.Item>
+                                className="mx-3 my-book-info-list-item">Жанр: <span>{currentBook?.genre}</span></ListGroup.Item>
                             <ListGroup.Item className="mx-3 my-book-info-list-item">Год
-                                издания: <span>{book?.publishing_year}</span></ListGroup.Item>
+                                издания: <span>{currentBook?.publishing_year}</span></ListGroup.Item>
                             <ListGroup.Item
-                                className="mx-3 my-book-info-list-item">Язык: <span>{book?.language}</span></ListGroup.Item>
+                                className="mx-3 my-book-info-list-item">Язык: <span>{currentBook?.language}</span></ListGroup.Item>
                             <ListGroup.Item className="mx-3 my-book-info-list-item">Возрастное
-                                ограничение: <span>{book?.age_limit}</span></ListGroup.Item>
+                                ограничение: <span>{currentBook?.age_limit}</span></ListGroup.Item>
                             <ListGroup.Item className="mx-3 my-book-info-list-item">Средний
-                                рейтинг: <span>{book?.avg_rating === -1 ? "Книга не оценена" : book?.avg_rating}</span></ListGroup.Item>
+                                рейтинг: <span>{currentBook?.avg_rating === -1 ? "Книга не оценена" : currentBook?.avg_rating}</span></ListGroup.Item>
                         </ListGroup>
                         <Row className="m-2">
                             <Button
                                 variant="primary"
-                                className="col-2 m-1 my-book-info-btn"
+                                className="col-2 m-1 ms-4 my-book-info-btn"
                                 onClick={handlerGoToBookCatalog}
                             >Назад к каталогу</Button>
                             {currentUser ? (

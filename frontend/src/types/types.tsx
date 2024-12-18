@@ -99,3 +99,8 @@ export interface IBookParams {
     language: string,
     age_limit: number
 }
+
+export interface IErrorResponse {
+    errorMessage: string,
+    errorCode: number,
+}

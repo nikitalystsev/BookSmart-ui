@@ -1,6 +1,7 @@
 import axios, {AxiosResponse} from "axios";
 import {IRefreshTokenInputDTO, IRefreshTokenOutputDTO, ISignInOutput} from "../types/types";
 import {axiosClient} from "./axiosClient";
+import {libCardKey} from "./libCard.service";
 
 export const userKey: string = "user";
 export const unexpectedError: number = -1
@@ -87,6 +88,7 @@ export const apiRefresh = async (refreshInputDTO: IRefreshTokenInputDTO) => {
 
 export const logOut = () => {
     sessionStorage.removeItem(userKey);
+    sessionStorage.removeItem(libCardKey);
 };
 
 export const getCurrentUser = (): ISignInOutput | null => {

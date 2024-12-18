@@ -3,23 +3,26 @@ import {Alert, Card, Col, Row} from "react-bootstrap";
 import Container from "react-bootstrap/Container";
 import React, {useEffect, useState} from "react";
 import '../css/book.css'
-import {IRatingOutputDTO} from "../types/types";
+import {IBookOutputDTO, IRatingOutputDTO} from "../types/types";
 import Matrix from "../components/matrix";
 import {apiGetPageReviews} from "../services/review.catalog.service";
 import Pagination from "../components/pagination";
 import BookCard from "../components/book-card";
 import getCurrentBook from "../services/book.service";
 import {StatusCodes} from "http-status-codes";
+import MyAlert from "../components/alert";
 
 function Book() {
     const [currentReviews, setCurrentReviews] = useState<IRatingOutputDTO[]>([])
     const [currentPage, setCurrentPage] = useState<number>(1)
-    const currentBook = getCurrentBook()
     const [alertVariant, setAlertVariant] = useState("")
     const [alertMessage, setAlertMessage] = useState("")
 
+    const currentBook = getCurrentBook()
+
     useEffect(() => {
-        getPageReviews(currentPage).then()
+        console.log("call book use effect")
+        getPageReviews(1).then()
     }, [])
 
     const getPageReviews = async (page_number: number) => {
@@ -41,11 +44,17 @@ function Book() {
         setAlertMessage(message);
 
         if (statusCode === StatusCodes.OK) setCurrentReviews(statusObj.response_data)
+
+        return statusCode
     }
 
     const handlerNextPageReviews = async () => {
         const result = await getPageReviews(currentPage + 1);
-        if (result !== null) setCurrentPage(currentPage + 1);
+        if (result && result === StatusCodes.OK) setCurrentPage(currentPage + 1);
+        else {
+            setAlertVariant("");
+            setAlertMessage("");
+        }
     };
 
     const handlerPrevPageReviews = async () => {
@@ -65,7 +74,7 @@ function Book() {
                 <h1 className="mt-5 text-center"> Отзывы</h1>
                 <Row className="col-8"><Col>
                     <hr/>
-                    <Alert variant={alertVariant} className="my-alert">{alertMessage}</Alert>
+                    <MyAlert message={alertMessage} variant={alertVariant} align={"my-alert"}></MyAlert>
                 </Col></Row>
                 <Matrix
                     items={currentReviews}
